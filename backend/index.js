@@ -12,23 +12,17 @@ app.get("/", (req, res) => {
 
 app.post("/book", async (req, res) => {
   try {
-    if (
-      !req.body.title ||
-      !req.body.author ||
-      !req.body.publishYear
-    ) {
+    if (!req.body.title || !req.body.author || !req.body.publishYear) {
       return res.status(400).send({ message: "all fields sent" });
     }
-      const newBook= {
-        title: req.body.title,
-        author: req.body.author,
-        publishYear: req.body.publishYear,
-      };
-    
+    const newBook = {
+      title: req.body.title,
+      author: req.body.author,
+      publishYear: req.body.publishYear,
+    };
 
     const book = await Book.create(newBook);
-    return res.status(200).send(book)
-
+    return res.status(200).send(book);
   } catch (error) {
     console.log(error);
     res.status(500).send("error");
