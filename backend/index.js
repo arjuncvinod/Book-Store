@@ -25,6 +25,7 @@ app.post("/book", async (req, res) => {
       };
     }
     const book = await Book.create(newBook);
+    return res.status(200).send(book)
   } catch (error) {
     console.log(error);
     res.status(500).send("error");
