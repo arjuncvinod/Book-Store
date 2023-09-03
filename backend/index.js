@@ -54,7 +54,7 @@ app.get('/books/:id', async (req,res)=>{
 app.put('/books/:id',async (req,res)=>{
   try {
     if(!req.body.title || !req.body.author || !req.body.publishYear){
-      return res.status(404).send("datails are missing")
+      return res.status(404).send("Title , Author name and publish year are required ")
     }
       const {id} = req.params
       const result = await Book.findByIdAndUpdate(id,req.body)
@@ -62,7 +62,6 @@ app.put('/books/:id',async (req,res)=>{
         return res.status(404).send("book not found")
       }
       return res.status(200).send("book updated")
-
 
   } catch (error) {
     console.log(error);
