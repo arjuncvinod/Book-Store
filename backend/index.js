@@ -56,7 +56,7 @@ app.put('/books/:id',async (req,res)=>{
     if(!req.body.title || !req.body.author || !req.body.publishYear){
       return res.status(404).send("Title , Author name and publish year are required ")
     }
-      const {id} = req.params
+      const id = req.params.id
       const result = await Book.findByIdAndUpdate(id,req.body)
       if(!result){
         return res.status(404).send("book not found")
@@ -67,6 +67,19 @@ app.put('/books/:id',async (req,res)=>{
     console.log(error);
     return res.status(500).send({message:error.message})    
   }
+})
+
+app.delete('/books/:id',async (req,res)=>{
+try {
+  const id=req.params.id
+  const result= await Book.findByIdAndDelete(id)
+  if(!result){
+    return res.status(404).send({message:"Book not found"})
+  }
+  return res.status(200).send({message:"Book deleted"})
+} catch (error) {
+  return res.status(500).send({message:error.message})
+}
 })
 
 app.listen(PORT, () => {
