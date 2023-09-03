@@ -7,10 +7,10 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("hello world");
+  res.send("hello")
 });
 
-app.post("/book", async (req, res) => {
+app.post("/books", async (req, res) => {
   try {
     if (!req.body.title || !req.body.author || !req.body.publishYear) {
       return res.status(400).send({ message: "all fields sent" });
@@ -29,6 +29,14 @@ app.post("/book", async (req, res) => {
   }
 });
 
+app.get('/books',async(req,res)=>{
+  try{
+    res.send( await Book.find({}))
+  }catch(error){
+    res.status(500).send({message:error.message})
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`server started at port ${PORT}`);
 });
@@ -36,7 +44,7 @@ app.listen(PORT, () => {
 mongoose
   .connect(mongoURL)
   .then(() => {
-    console.log("mongodb connected");
+    console.log("Database connected");
   })
   .catch((error) => {
     console.log(error);
