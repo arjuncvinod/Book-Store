@@ -90,7 +90,7 @@ app.listen(PORT, () => {
 mongoose
   .connect(mongoURL)
   .then(() => {
-    console.log("Database connected");
+    console.log("Connected to database");
   })
   .catch((error) => {
     console.log(error);
