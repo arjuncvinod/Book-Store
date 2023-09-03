@@ -51,6 +51,25 @@ app.get('/books/:id', async (req,res)=>{
   }
 })
 
+app.put('/books/:id',async (req,res)=>{
+  try {
+    if(!req.body.title || !req.body.author || !req.body.publishYear){
+      return res.status(404).send("datails are missing")
+    }
+      const {id} = req.params
+      const result = await Book.findByIdAndUpdate(id,req.body)
+      if(!result){
+        return res.status(404).send("book not found")
+      }
+      return res.status(200).send("book updated")
+
+
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({message:error.message})    
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`server started at port ${PORT}`);
 });
