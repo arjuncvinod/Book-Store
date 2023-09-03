@@ -31,7 +31,8 @@ app.post("/books", async (req, res) => {
 
 app.get('/books',async(req,res)=>{
   try{
-    res.send( await Book.find({}))
+    const books= await Book.find({})
+   return res.status(200).json(books)
   }catch(error){
     res.status(500).send({message:error.message})
   }
