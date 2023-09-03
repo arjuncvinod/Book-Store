@@ -78,7 +78,7 @@ try {
   }
   return res.status(200).send({message:"Book deleted"})
 } catch (error) {
-  console.log(error);
+  console.log(error.message);
   return res.status(500).send({message:error.message})
 }
 })
