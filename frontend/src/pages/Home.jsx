@@ -71,7 +71,7 @@ Publish Year
 </tr>
 ))}
 </tbody>
-</table>
+
 )}
 </div>
 }
