@@ -9,7 +9,7 @@ const CreateBooks = () => {
   const [publishYear, setPublishYear] = useState(" ");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {id}=useParams
+  const {id}=useParams()
 useEffect(()=>{
   setLoading(true)
   axios.get(`http://localhost:8000/books/${id}`).then((res)=>{
@@ -17,9 +17,13 @@ useEffect(()=>{
     setAuthor(res.data.author)
     setPublishYear(res.data.publishYear)
     setLoading(false)
+  }).catch((err)=>{
+    console.log(err);
+    setLoading(false)
+    alert("error")
   })
-})
-  const handleSaveBook = () => {
+},[])
+  const handleEditBook = () => {
     const data = {
       title,
       author,
@@ -27,7 +31,7 @@ useEffect(()=>{
     };
     setLoading(true);
     axios
-      .post("http://localhost:8000/books", data)
+      .put(`http://localhost:8000/books/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate("/");
@@ -71,7 +75,7 @@ useEffect(()=>{
             className="border-2 border-gray-500 px-4 py-2 w-full"
           />
         </div>
-        <button className="p-2 bg-sky-300 m-8" onClick={handleSaveBook}>
+        <button className="p-2 bg-sky-300 m-8" onClick={handleEditBook}>
           Save
         </button>
       </div>
