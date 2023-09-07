@@ -3,6 +3,7 @@ import Spinner from "../componets/Spinner";
 import Backbutton from "../componets/Backbutton";
 import axios from "axios";
 import { useNavigate , useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 const CreateBooks = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -10,6 +11,7 @@ const CreateBooks = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {id}=useParams()
+  const {enqueueSnackbar} = useSnackbar()
 useEffect(()=>{
   setLoading(true)
   axios.get(`http://localhost:8000/books/${id}`).then((res)=>{
@@ -20,6 +22,7 @@ useEffect(()=>{
   }).catch((err)=>{
     console.log(err);
     setLoading(false)
+    enqueueSnackbar("Error Retrieving Book",{variant:'error'});
     alert("error")
   })
 },[])
@@ -34,12 +37,13 @@ useEffect(()=>{
       .put(`http://localhost:8000/books/${id}`, data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar("Updated Succesfully",{variant:'success'})
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        alert("error");
+        enqueueSnackbar("Error", { variant: "error" });
       });
   };
   return (

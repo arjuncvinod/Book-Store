@@ -4,6 +4,7 @@ import Backbutton from '../componets/Backbutton'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { enqueueSnackbar } from 'notistack'
 
 
 function DeleteBook() {
@@ -16,9 +17,11 @@ const handleDelete=()=>{
   setLoading(true)
   axios.delete(`http://localhost:8000/books/${id}`).then(()=>{
     setLoading(false)
+    enqueueSnackbar("Book deleted Successfully",{variant:'success'})
     navigate('/')
   }).catch((err)=>{
     setLoading(false)
+    enqueueSnackbar("Error", { variant: "error" });
     console.log(err);
   })
 }
