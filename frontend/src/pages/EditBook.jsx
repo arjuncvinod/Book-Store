@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import { useState , useEffect } from "react";
 import Spinner from "../componets/Spinner";
 import Backbutton from "../componets/Backbutton";
 import axios from "axios";
@@ -76,7 +76,7 @@ useEffect(()=>{
           />
         </div>
         <button className="p-2 bg-sky-300 m-8" onClick={handleEditBook}>
-          Save
+          Update
         </button>
       </div>
     </div>
