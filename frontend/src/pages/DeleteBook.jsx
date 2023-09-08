@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { enqueueSnackbar } from 'notistack'
+import { api } from '../../config'
 
 
 function DeleteBook() {
@@ -15,7 +16,7 @@ const [loading,setLoading]=useState(false)
   const navigate = useNavigate()
 const handleDelete=()=>{
   setLoading(true)
-  axios.delete(`http://localhost:8000/books/${id}`).then(()=>{
+  axios.delete(`${api}/books/${id}`).then(()=>{
     setLoading(false)
     enqueueSnackbar("Book deleted Successfully",{variant:'success'})
     navigate('/')
