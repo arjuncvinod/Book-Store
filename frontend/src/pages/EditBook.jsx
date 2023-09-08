@@ -4,6 +4,7 @@ import Backbutton from "../componets/Backbutton";
 import axios from "axios";
 import { useNavigate , useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { api } from "../../config";
 const CreateBooks = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -14,7 +15,7 @@ const CreateBooks = () => {
   const {enqueueSnackbar} = useSnackbar()
 useEffect(()=>{
   setLoading(true)
-  axios.get(`http://localhost:8000/books/${id}`).then((res)=>{
+  axios.get(`${api}/books/${id}`).then((res)=>{
     setTitle(res.data.title)
     setAuthor(res.data.author)
     setPublishYear(res.data.publishYear)
@@ -34,7 +35,7 @@ useEffect(()=>{
     };
     setLoading(true);
     axios
-      .put(`http://localhost:8000/books/${id}`, data)
+      .put(`${api}/books/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Updated Succesfully",{variant:'success'})

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import BookTable from "../componets/Home/BookTable";
 import BookCard from "../componets/Home/BookCard";
 import { MdOutlineAddBox } from "react-icons/md";
-
+import { api } from "../../config";
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState("false");
@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:8000/books")
+      .get(`${api}/books`)
       .then((res) => {
         setBooks(res.data.data);
         setLoading(false);
